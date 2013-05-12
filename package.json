@@ -1,0 +1,9 @@
+{
+  "name": "markback",
+  "version": "0.0.1",
+  "description": "Converts html into sensible-looking markdown.",
+  "keywords": ["markdown", "conversion", "html", "dom"],
+  "license": "MIT",
+  "author": "Max Edmands (http://maxedmands.com)",
+  "dependencies": { "jsdom": "0.6.1" }
+}
