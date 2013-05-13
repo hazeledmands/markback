@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+require("coffee-script");
+var driver = require("../lib/driver");
+driver.run();

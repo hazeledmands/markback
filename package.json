@@ -10,5 +10,8 @@
     "q": "~0.9",
     "optimist": "~0.4",
     "coffee-script": "~1.6"
+  },
+  "bin": {
+    "markback": "./bin/markback"
   }
 }
