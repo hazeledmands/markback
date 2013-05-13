@@ -5,5 +5,10 @@
   "keywords": ["markdown", "conversion", "html", "dom"],
   "license": "MIT",
   "author": "Max Edmands (http://maxedmands.com)",
-  "dependencies": { "jsdom": "0.6.1" }
+  "dependencies": {
+    "jsdom": "0.6.1",
+    "q": "~0.9",
+    "optimist": "~0.4",
+    "coffee-script": "~1.6"
+  }
 }
