@@ -2,7 +2,12 @@
   "name": "markback",
   "version": "0.0.1",
   "description": "Converts html into sensible-looking markdown.",
-  "keywords": ["markdown", "conversion", "html", "dom"],
+  "keywords": [
+    "markdown",
+    "conversion",
+    "html",
+    "dom"
+  ],
   "license": "MIT",
   "author": "Max Edmands (http://maxedmands.com)",
   "dependencies": {
@@ -13,5 +18,10 @@
   },
   "bin": {
     "markback": "./bin/markback"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-uglify": "~0.2.0"
   }
 }
