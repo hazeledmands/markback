@@ -205,8 +205,11 @@
 
   })(Inline);
 
-  window.Markback = function() {
-    return fromDomNode(document.documentElement).convert();
+  window.Markback = function(domNode) {
+    if (domNode == null) {
+      domNode = document.documentElement;
+    }
+    return fromDomNode(domNode).convert();
   };
 
 }).call(this);

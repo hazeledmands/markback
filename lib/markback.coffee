@@ -54,4 +54,4 @@ class Anchor extends Inline
 class Emphasis extends Inline
   convert: -> "#{EMPHASIS_MARK}#{super}#{EMPHASIS_MARK}"
 
-window.Markback = -> fromDomNode(document.documentElement).convert()
+window.Markback = (domNode = document.documentElement) -> fromDomNode(domNode).convert()
