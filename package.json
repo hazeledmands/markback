@@ -15,6 +15,7 @@
     "q": "~0.9",
     "coffee-script": "~1.6"
   },
+  "main": "lib/main.js",
   "bin": {
     "markback": "./bin/markback"
   },
