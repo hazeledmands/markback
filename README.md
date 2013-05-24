@@ -5,10 +5,54 @@ a browser, in a command line, or as a node module.
 It uses the DOM to do its magic: Whatever the browser
 sees should be what you get.
 
-## Example:
+Still a work in progress -- some of the information in
+this document might not yet be true.
+
+## How to run:
+
+### In a browser:
 
 ```html
-HTML VERSION                                                    MARKDOWN VERSION
+<!doctype html>
+<html>
+  <head>
+    <title>Convert to markdown!</title>
+    <script src="https://raw.github.com/demands/markback/master/build/markback.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="convertMe">
+      <!-- html to convert goes here -->
+    </div>
+    <pre id="markdown">
+      <script type="text/javascript">
+        var markdown = Markback(document.getElementById("convertMe"));
+        document.write(markdown);
+      </script>
+    </pre>
+  </body>
+</html>
+```
+
+### From the command line:
+
+```bash
+$ npm install -g markback
+$ markback < input.html > output.md
+```
+
+### As a node module:
+
+```javascript
+var Markback = require('markback')
+Markback.convertHtml(/* html to convert goes here */, function(markdown) {
+  console.log(markdown);
+});
+```
+
+## Example output:
+
+```html
+INPUT                                                           OUTPUT
 
 <h1>This is a test</h1>                                         # This is a test
 
@@ -33,6 +77,10 @@ deserunt mollit anim id est laborum</p>                         deserunt mollit 
 
 **A:** Not quite yet. The HTML for GitHub's flavor seems really
 complex. Maybe it would be a good v2.0 feature.
+
+## Specs:
+
+Currently a work in progress.
 
 ## License:
 
