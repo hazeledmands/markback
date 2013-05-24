@@ -34,6 +34,6 @@ deserunt mollit anim id est laborum</p>                         deserunt mollit 
 **A:** Not quite yet. The HTML for GitHub's flavor seems really
 complex. Maybe it would be a good v2.0 feature.
 
-## Licence
+## License
 
 MIT.
