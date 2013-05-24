@@ -4,6 +4,7 @@ fromDomNode = (domNode, parent) ->
   nodeName = domNode.nodeName?.toLowerCase()
   markbackNode = switch
     when domNode.nodeType is window.Node.TEXT_NODE then new Text()
+    when nodeName is 'head' then new Head()
     when nodeName is 'div' then new Block()
     when nodeName is 'p' then new Block()
     when nodeName is 'blockquote' then new BlockQuote()
@@ -22,6 +23,10 @@ class MarkbackNode
         fromDomNode(child, this).convert()
       convertedChildren.join('')
     else ""
+  prefix: -> @parent?.prefix() or ""
+
+class Head extends MarkbackNode
+  convert: -> ''
 
 class Block extends MarkbackNode
   convert: ->
@@ -30,8 +35,6 @@ class Block extends MarkbackNode
       ""
     else
       "\n" + this.prefix() + out + "\n\n"
-  prefix: ->
-    @parent?.prefix() or ""
 
 class BlockQuote extends Block
   prefix: -> super + "    "
@@ -51,4 +54,4 @@ class Anchor extends Inline
 class Emphasis extends Inline
   convert: -> "#{EMPHASIS_MARK}#{super}#{EMPHASIS_MARK}"
 
-window.Markback = (id) -> fromDomNode(document.getElementById(id)).convert()
+window.Markback = -> fromDomNode(document.documentElement).convert()

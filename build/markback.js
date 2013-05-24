@@ -1,5 +1,5 @@
 (function() {
-  var Anchor, Block, BlockQuote, EMPHASIS_MARK, Emphasis, Heading, Inline, MarkbackNode, Text, fromDomNode, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6,
+  var Anchor, Block, BlockQuote, EMPHASIS_MARK, Emphasis, Head, Heading, Inline, MarkbackNode, Text, fromDomNode, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -13,6 +13,8 @@
       switch (false) {
         case domNode.nodeType !== window.Node.TEXT_NODE:
           return new Text();
+        case nodeName !== 'head':
+          return new Head();
         case nodeName !== 'div':
           return new Block();
         case nodeName !== 'p':
@@ -58,16 +60,38 @@
       }
     };
 
+    MarkbackNode.prototype.prefix = function() {
+      var _ref;
+
+      return ((_ref = this.parent) != null ? _ref.prefix() : void 0) || "";
+    };
+
     return MarkbackNode;
 
   })();
+
+  Head = (function(_super) {
+    __extends(Head, _super);
+
+    function Head() {
+      _ref = Head.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    Head.prototype.convert = function() {
+      return '';
+    };
+
+    return Head;
+
+  })(MarkbackNode);
 
   Block = (function(_super) {
     __extends(Block, _super);
 
     function Block() {
-      _ref = Block.__super__.constructor.apply(this, arguments);
-      return _ref;
+      _ref1 = Block.__super__.constructor.apply(this, arguments);
+      return _ref1;
     }
 
     Block.prototype.convert = function() {
@@ -81,12 +105,6 @@
       }
     };
 
-    Block.prototype.prefix = function() {
-      var _ref1;
-
-      return ((_ref1 = this.parent) != null ? _ref1.prefix() : void 0) || "";
-    };
-
     return Block;
 
   })(MarkbackNode);
@@ -95,8 +113,8 @@
     __extends(BlockQuote, _super);
 
     function BlockQuote() {
-      _ref1 = BlockQuote.__super__.constructor.apply(this, arguments);
-      return _ref1;
+      _ref2 = BlockQuote.__super__.constructor.apply(this, arguments);
+      return _ref2;
     }
 
     BlockQuote.prototype.prefix = function() {
@@ -111,8 +129,8 @@
     __extends(Heading, _super);
 
     function Heading() {
-      _ref2 = Heading.__super__.constructor.apply(this, arguments);
-      return _ref2;
+      _ref3 = Heading.__super__.constructor.apply(this, arguments);
+      return _ref3;
     }
 
     Heading.prototype.prefix = function() {
@@ -127,8 +145,8 @@
     __extends(Inline, _super);
 
     function Inline() {
-      _ref3 = Inline.__super__.constructor.apply(this, arguments);
-      return _ref3;
+      _ref4 = Inline.__super__.constructor.apply(this, arguments);
+      return _ref4;
     }
 
     Inline.prototype.convert = function() {
@@ -143,8 +161,8 @@
     __extends(Text, _super);
 
     function Text() {
-      _ref4 = Text.__super__.constructor.apply(this, arguments);
-      return _ref4;
+      _ref5 = Text.__super__.constructor.apply(this, arguments);
+      return _ref5;
     }
 
     Text.prototype.convert = function() {
@@ -159,8 +177,8 @@
     __extends(Anchor, _super);
 
     function Anchor() {
-      _ref5 = Anchor.__super__.constructor.apply(this, arguments);
-      return _ref5;
+      _ref6 = Anchor.__super__.constructor.apply(this, arguments);
+      return _ref6;
     }
 
     Anchor.prototype.convert = function() {
@@ -175,8 +193,8 @@
     __extends(Emphasis, _super);
 
     function Emphasis() {
-      _ref6 = Emphasis.__super__.constructor.apply(this, arguments);
-      return _ref6;
+      _ref7 = Emphasis.__super__.constructor.apply(this, arguments);
+      return _ref7;
     }
 
     Emphasis.prototype.convert = function() {
@@ -187,8 +205,8 @@
 
   })(Inline);
 
-  window.Markback = function(id) {
-    return fromDomNode(document.getElementById(id)).convert();
+  window.Markback = function() {
+    return fromDomNode(document.documentElement).convert();
   };
 
 }).call(this);
