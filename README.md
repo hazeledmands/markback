@@ -25,7 +25,7 @@ deserunt mollit anim id est laborum</p>                         deserunt mollit 
 
 ## FAQ:
 
-**Q: Will it leave HTML it doesn't understnad untouched?**
+**Q: Will it leave HTML it doesn't understand untouched?**
 
 **A:** It will try. No guarantees, though.
 
@@ -34,6 +34,6 @@ deserunt mollit anim id est laborum</p>                         deserunt mollit 
 **A:** Not quite yet. The HTML for GitHub's flavor seems really
 complex. Maybe it would be a good v2.0 feature.
 
-## License
+## License:
 
 MIT.
