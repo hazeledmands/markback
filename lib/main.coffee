@@ -9,7 +9,7 @@ MARKBACK_FILE = path.join(__dirname, '../build/markback.js')
 readMarkback = Q.nfcall(fs.readFile, MARKBACK_FILE).then (file) ->
   Q.fcall -> file.toString('utf-8')
 
-convertHtml = (html) ->
+convertHtml = (html, callback = ->) ->
   readMarkback.then (markback) ->
     deferred = Q.defer()
     Jsdom.env {
@@ -19,6 +19,11 @@ convertHtml = (html) ->
     }
     deferred.promise
   .then (window) ->
-     Q.fcall -> window.Markback()
+     markdown = window.Markback()
+     callback null, markdown
+     Q.fcall -> markdown
+  .fail (err) ->
+    callback err
+    throw err
 
 module.exports = {convertHtml}
