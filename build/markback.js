@@ -3,39 +3,6 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  EMPHASIS_MARK = '*';
-
-  fromDomNode = function(domNode, parent) {
-    var markbackNode, nodeName, _ref;
-
-    nodeName = (_ref = domNode.nodeName) != null ? _ref.toLowerCase() : void 0;
-    markbackNode = (function() {
-      switch (false) {
-        case domNode.nodeType !== window.Node.TEXT_NODE:
-          return new Text();
-        case nodeName !== 'head':
-          return new Head();
-        case nodeName !== 'div':
-          return new Block();
-        case nodeName !== 'p':
-          return new Block();
-        case nodeName !== 'blockquote':
-          return new BlockQuote();
-        case !nodeName.match(/^h\d$/):
-          return new Heading();
-        case nodeName !== 'a':
-          return new Anchor();
-        case nodeName !== 'em':
-          return new Emphasis();
-        default:
-          return new MarkbackNode();
-      }
-    })();
-    markbackNode.domNode = domNode;
-    markbackNode.parent = parent;
-    return markbackNode;
-  };
-
   MarkbackNode = (function() {
     function MarkbackNode() {}
 
@@ -70,19 +37,19 @@
 
   })();
 
-  Head = (function(_super) {
-    __extends(Head, _super);
+  Inline = (function(_super) {
+    __extends(Inline, _super);
 
-    function Head() {
-      _ref = Head.__super__.constructor.apply(this, arguments);
+    function Inline() {
+      _ref = Inline.__super__.constructor.apply(this, arguments);
       return _ref;
     }
 
-    Head.prototype.convert = function() {
-      return '';
+    Inline.prototype.convert = function() {
+      return Inline.__super__.convert.apply(this, arguments);
     };
 
-    return Head;
+    return Inline;
 
   })(MarkbackNode);
 
@@ -109,76 +76,12 @@
 
   })(MarkbackNode);
 
-  BlockQuote = (function(_super) {
-    __extends(BlockQuote, _super);
-
-    function BlockQuote() {
-      _ref2 = BlockQuote.__super__.constructor.apply(this, arguments);
-      return _ref2;
-    }
-
-    BlockQuote.prototype.prefix = function() {
-      return BlockQuote.__super__.prefix.apply(this, arguments) + "    ";
-    };
-
-    return BlockQuote;
-
-  })(Block);
-
-  Heading = (function(_super) {
-    __extends(Heading, _super);
-
-    function Heading() {
-      _ref3 = Heading.__super__.constructor.apply(this, arguments);
-      return _ref3;
-    }
-
-    Heading.prototype.prefix = function() {
-      return Heading.__super__.prefix.apply(this, arguments) + "# ";
-    };
-
-    return Heading;
-
-  })(Block);
-
-  Inline = (function(_super) {
-    __extends(Inline, _super);
-
-    function Inline() {
-      _ref4 = Inline.__super__.constructor.apply(this, arguments);
-      return _ref4;
-    }
-
-    Inline.prototype.convert = function() {
-      return Inline.__super__.convert.apply(this, arguments);
-    };
-
-    return Inline;
-
-  })(MarkbackNode);
-
-  Text = (function(_super) {
-    __extends(Text, _super);
-
-    function Text() {
-      _ref5 = Text.__super__.constructor.apply(this, arguments);
-      return _ref5;
-    }
-
-    Text.prototype.convert = function() {
-      return this.domNode.textContent.replace(/\s+/g, ' ');
-    };
-
-    return Text;
-
-  })(Inline);
-
   Anchor = (function(_super) {
     __extends(Anchor, _super);
 
     function Anchor() {
-      _ref6 = Anchor.__super__.constructor.apply(this, arguments);
-      return _ref6;
+      _ref2 = Anchor.__super__.constructor.apply(this, arguments);
+      return _ref2;
     }
 
     Anchor.prototype.convert = function() {
@@ -189,12 +92,30 @@
 
   })(Inline);
 
+  BlockQuote = (function(_super) {
+    __extends(BlockQuote, _super);
+
+    function BlockQuote() {
+      _ref3 = BlockQuote.__super__.constructor.apply(this, arguments);
+      return _ref3;
+    }
+
+    BlockQuote.prototype.prefix = function() {
+      return BlockQuote.__super__.prefix.apply(this, arguments) + "    ";
+    };
+
+    return BlockQuote;
+
+  })(Block);
+
+  EMPHASIS_MARK = '*';
+
   Emphasis = (function(_super) {
     __extends(Emphasis, _super);
 
     function Emphasis() {
-      _ref7 = Emphasis.__super__.constructor.apply(this, arguments);
-      return _ref7;
+      _ref4 = Emphasis.__super__.constructor.apply(this, arguments);
+      return _ref4;
     }
 
     Emphasis.prototype.convert = function() {
@@ -205,6 +126,85 @@
 
   })(Inline);
 
+  Head = (function(_super) {
+    __extends(Head, _super);
+
+    function Head() {
+      _ref5 = Head.__super__.constructor.apply(this, arguments);
+      return _ref5;
+    }
+
+    Head.prototype.convert = function() {
+      return '';
+    };
+
+    return Head;
+
+  })(MarkbackNode);
+
+  Heading = (function(_super) {
+    __extends(Heading, _super);
+
+    function Heading() {
+      _ref6 = Heading.__super__.constructor.apply(this, arguments);
+      return _ref6;
+    }
+
+    Heading.prototype.prefix = function() {
+      return Heading.__super__.prefix.apply(this, arguments) + "# ";
+    };
+
+    return Heading;
+
+  })(Block);
+
+  Text = (function(_super) {
+    __extends(Text, _super);
+
+    function Text() {
+      _ref7 = Text.__super__.constructor.apply(this, arguments);
+      return _ref7;
+    }
+
+    Text.prototype.convert = function() {
+      return this.domNode.textContent.replace(/\s+/g, ' ');
+    };
+
+    return Text;
+
+  })(Inline);
+
+  fromDomNode = function(domNode, parent) {
+    var markbackNode, nodeName, _ref8;
+
+    nodeName = (_ref8 = domNode.nodeName) != null ? _ref8.toLowerCase() : void 0;
+    markbackNode = (function() {
+      switch (false) {
+        case domNode.nodeType !== window.Node.TEXT_NODE:
+          return new Text();
+        case nodeName !== 'head':
+          return new Head();
+        case nodeName !== 'div':
+          return new Block();
+        case nodeName !== 'p':
+          return new Block();
+        case nodeName !== 'blockquote':
+          return new BlockQuote();
+        case !nodeName.match(/^h\d$/):
+          return new Heading();
+        case nodeName !== 'a':
+          return new Anchor();
+        case nodeName !== 'em':
+          return new Emphasis();
+        default:
+          return new MarkbackNode();
+      }
+    })();
+    markbackNode.domNode = domNode;
+    markbackNode.parent = parent;
+    return markbackNode;
+  };
+
   window.Markback = function(domNode) {
     if (domNode == null) {
       domNode = document.documentElement;
@@ -213,3 +213,7 @@
   };
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=markback.js.map
+*/

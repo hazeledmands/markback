@@ -2,8 +2,17 @@ module.exports = (grunt) ->
   grunt.initConfig {
     pkg: grunt.file.readJSON('package.json')
     coffee: {
+      options: { join: true, sourceMap: true },
       compile: {
-        files: { 'build/<%= pkg.name %>.js': 'lib/markback/markback.coffee' }
+        files: {
+          'build/<%= pkg.name %>.js': [
+            'lib/markback/nodes/node.coffee',
+            'lib/markback/nodes/inline.coffee',
+            'lib/markback/nodes/block.coffee',
+            'lib/markback/nodes/*.coffee',
+            'lib/markback/markback.coffee'
+          ]
+        }
       }
     }
     uglify: {
