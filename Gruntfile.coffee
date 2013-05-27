@@ -3,7 +3,7 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON('package.json')
     coffee: {
       compile: {
-        files: { 'build/<%= pkg.name %>.js': 'lib/markback.coffee' }
+        files: { 'build/<%= pkg.name %>.js': 'lib/markback/markback.coffee' }
       }
     }
     uglify: {

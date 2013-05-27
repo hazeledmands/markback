@@ -4,7 +4,7 @@ Coffee = require "coffee-script"
 Q = require "q"
 Jsdom = require "jsdom"
 
-compileMarkback = Q.nfcall(fs.readFile, path.join(__dirname, '../lib/markback.coffee')).then (coffeeSource) ->
+compileMarkback = Q.nfcall(fs.readFile, path.join(__dirname, './markback/markback.coffee')).then (coffeeSource) ->
   Q.fcall Coffee.compile, coffeeSource.toString 'utf-8'
 
 convertHtml = (html) ->
