@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Markback tests</title>
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+    <style type="text/css">
+      #markback-tests {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="../build/markback.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script>mocha.setup('tdd')</script>
+
+    <div id="markback-tests">
+      <div data-suite="headings">
+
+        <div data-test="h1"> 
+
+          <div class="source">
+            <h1>Hello world</h1>
+          </div>
+
+          <pre class="expected">
+            # Hello world
+          </pre>
+
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      chai.should();
+      mocha.checkLeaks();
+      mocha.run();
+    </script>
+
+  </body>
+</html>
