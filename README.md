@@ -44,9 +44,15 @@ $ markback < input.html > output.md
 
 ```javascript
 var Markback = require('markback')
-Markback.convertHtml(/* html to convert goes here */, function(markdown) {
-  console.log(markdown);
-});
+
+// Can be done with regular callbacks:
+Markback.convertHtml("<h1>Hello world</h1>, function(err, markdown) { console.log(markdown); });
+// => # Hello world
+
+// Can also be done with promises:
+Markback.convertHtml("<h1>Hello world</h1>")
+  .then(function(markdown) { console.log(markdown); });
+// => # Hello world
 ```
 
 ## Example output:
