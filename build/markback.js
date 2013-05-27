@@ -1,5 +1,5 @@
 (function() {
-  var Anchor, Block, BlockQuote, EMPHASIS_MARK, Emphasis, Head, Heading, Inline, MarkbackNode, Text, fromDomNode, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7,
+  var Anchor, Block, BlockQuote, Br, EMPHASIS_MARK, Emphasis, Head, Heading, Hr, Inline, MarkbackNode, RULE_MARK, Text, fromDomNode, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -108,14 +108,30 @@
 
   })(Block);
 
+  Br = (function(_super) {
+    __extends(Br, _super);
+
+    function Br() {
+      _ref4 = Br.__super__.constructor.apply(this, arguments);
+      return _ref4;
+    }
+
+    Br.prototype.convert = function() {
+      return "  \n";
+    };
+
+    return Br;
+
+  })(Inline);
+
   EMPHASIS_MARK = '*';
 
   Emphasis = (function(_super) {
     __extends(Emphasis, _super);
 
     function Emphasis() {
-      _ref4 = Emphasis.__super__.constructor.apply(this, arguments);
-      return _ref4;
+      _ref5 = Emphasis.__super__.constructor.apply(this, arguments);
+      return _ref5;
     }
 
     Emphasis.prototype.convert = function() {
@@ -130,8 +146,8 @@
     __extends(Head, _super);
 
     function Head() {
-      _ref5 = Head.__super__.constructor.apply(this, arguments);
-      return _ref5;
+      _ref6 = Head.__super__.constructor.apply(this, arguments);
+      return _ref6;
     }
 
     Head.prototype.convert = function() {
@@ -146,8 +162,8 @@
     __extends(Heading, _super);
 
     function Heading() {
-      _ref6 = Heading.__super__.constructor.apply(this, arguments);
-      return _ref6;
+      _ref7 = Heading.__super__.constructor.apply(this, arguments);
+      return _ref7;
     }
 
     Heading.prototype.prefix = function() {
@@ -158,12 +174,30 @@
 
   })(Block);
 
+  RULE_MARK = "- - -";
+
+  Hr = (function(_super) {
+    __extends(Hr, _super);
+
+    function Hr() {
+      _ref8 = Hr.__super__.constructor.apply(this, arguments);
+      return _ref8;
+    }
+
+    Hr.prototype.convert = function() {
+      return "\n" + RULE_MARK + "\n";
+    };
+
+    return Hr;
+
+  })(Block);
+
   Text = (function(_super) {
     __extends(Text, _super);
 
     function Text() {
-      _ref7 = Text.__super__.constructor.apply(this, arguments);
-      return _ref7;
+      _ref9 = Text.__super__.constructor.apply(this, arguments);
+      return _ref9;
     }
 
     Text.prototype.convert = function() {
@@ -175,9 +209,9 @@
   })(Inline);
 
   fromDomNode = function(domNode, parent) {
-    var markbackNode, nodeName, _ref8;
+    var markbackNode, nodeName, _ref10;
 
-    nodeName = (_ref8 = domNode.nodeName) != null ? _ref8.toLowerCase() : void 0;
+    nodeName = (_ref10 = domNode.nodeName) != null ? _ref10.toLowerCase() : void 0;
     markbackNode = (function() {
       switch (false) {
         case domNode.nodeType !== window.Node.TEXT_NODE:
@@ -188,6 +222,8 @@
           return new Block();
         case nodeName !== 'p':
           return new Block();
+        case nodeName !== 'hr':
+          return new Hr();
         case nodeName !== 'blockquote':
           return new BlockQuote();
         case !nodeName.match(/^h\d$/):
@@ -196,6 +232,10 @@
           return new Anchor();
         case nodeName !== 'em':
           return new Emphasis();
+        case nodeName !== 'i':
+          return new Emphasis();
+        case nodeName !== 'br':
+          return new Br();
         default:
           return new MarkbackNode();
       }

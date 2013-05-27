@@ -28,6 +28,9 @@ class BlockQuote extends Block
   prefix: -> super + "    "
 
 
+class Br extends Inline
+  convert: -> "  \n"
+
 EMPHASIS_MARK = '*'
 
 class Emphasis extends Inline
@@ -42,6 +45,11 @@ class Heading extends Block
   prefix: -> super + "# "
 
 
+RULE_MARK = "- - -"
+
+class Hr extends Block
+  convert: -> "\n" + RULE_MARK + "\n"
+
 class Text extends Inline
   convert: -> @domNode.textContent.replace(/\s+/g, ' ')
 
@@ -52,10 +60,13 @@ fromDomNode = (domNode, parent) ->
     when nodeName is 'head' then new Head()
     when nodeName is 'div' then new Block()
     when nodeName is 'p' then new Block()
+    when nodeName is 'hr' then new Hr()
     when nodeName is 'blockquote' then new BlockQuote()
     when nodeName.match(/^h\d$/) then new Heading()
     when nodeName is 'a' then new Anchor()
     when nodeName is 'em' then new Emphasis()
+    when nodeName is 'i' then new Emphasis()
+    when nodeName is 'br' then new Br()
     else new MarkbackNode()
   markbackNode.domNode = domNode
   markbackNode.parent = parent
